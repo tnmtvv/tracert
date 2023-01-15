@@ -3,9 +3,9 @@ import argparse
 from MyTracert import MyTracert
 
 
-def main(address, max_steps):
-    mytrcrt = MyTracert(address, max_steps)
-    return mytrcrt.run()
+def main(address: str, max_steps: int, timeout: int):
+    mytrcrt = MyTracert(address, max_steps, timeout)
+    return mytrcrt.tracert_run()
 
 
 if __name__ == "__main__":
@@ -18,10 +18,14 @@ if __name__ == "__main__":
     parser.add_argument(
         "max_steps", type=int, help="maximum number of steps to go"
     )
+    parser.add_argument(
+        "timeout", type=int, help="maximum number of steps to go"
+    )
 
     args = parser.parse_args()
 
     main(
-        args.address,
+        args.domain_name,
         args.max_steps,
+        args.timeout,
     )
