@@ -10,7 +10,7 @@ class MyTracert():
         self.max_steps = max_steps
         self.end_point = socket.gethostbyname(end_point)
         self.timeout = timeout
-        self.port = random.randint(1024, 65535)
+        self.port = random.choice(range(33434, 33535))
         self.sender = self._create_sender_socket()
         self.receiver = self._create_receiver_socket()
         self.message = b"hello"
@@ -39,7 +39,7 @@ class MyTracert():
 
     def _send_package(self, ttl: int):
         self.sender.setsockopt(socket.IPPROTO_IP, socket.IP_TTL, ttl)  # changing the time of life
-        self.sender.sendto(''.encode(), (self.end_point, self.port))
+        self.sender.sendto(''.encode(), (socket.gethostbyname(self.end_point), self.port))
 
     def _receive_answer(self):
         try:
